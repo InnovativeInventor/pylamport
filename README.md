@@ -1,5 +1,6 @@
 ## Pylamport
-[![Build Status](https://travis-ci.com/InnovativeInventor/pylamport.svg?branch=master)](https://travis-ci.com/InnovativeInventor/pylamport) 
+[![Build
+Status](https://travis-ci.com/InnovativeInventor/pylamport.svg?branch=master)](https://travis-ci.com/InnovativeInventor/pylamport) [![codecov](https://codecov.io/gh/InnovativeInventor/pylamport/branch/master/graph/badge.svg)](https://codecov.io/gh/InnovativeInventor/pylamport)
 
 A python library for producing lamport signatures.
 
