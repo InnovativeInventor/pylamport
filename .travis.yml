@@ -6,10 +6,10 @@ python:
 
 before_install:
     - python --version
-    - pip install -U pip pytest codecov
+    - pip install -U pip pytest codecov pytest-cov
 
 script:
-    - pytest
+    - pytest --cov-report term --cov=app/test/
 
 after_success:
     - codecov
