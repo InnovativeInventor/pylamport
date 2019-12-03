@@ -59,8 +59,7 @@ def test_just_sign():
     assert len(repr(signature)) > 10
 
 def test_is_key():
-    test = pylamport.Lamport().is_key()
-    assert test == False
+    assert pylamport.Lamport().is_key() == False
 
 def error_test_forged_signature():
     identity = pylamport.Lamport()
