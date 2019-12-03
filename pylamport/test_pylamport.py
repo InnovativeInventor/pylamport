@@ -1,7 +1,7 @@
 import hashlib
 import secrets
 
-import pylamport
+from pylamport import pylamport
 
 
 def test_lamport():
