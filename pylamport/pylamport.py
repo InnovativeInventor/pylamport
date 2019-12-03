@@ -55,6 +55,8 @@ class Lamport:
         except:
             return False
 
+        return False
+
     def sign(self, msg: str):
         """
         Signs a public/private key pair using the public/private key pair.
