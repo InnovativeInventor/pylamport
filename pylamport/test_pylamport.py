@@ -1,6 +1,8 @@
 import hashlib
 import secrets
 
+import pytest
+
 from pylamport import pylamport
 
 
@@ -41,3 +43,24 @@ def test_plain_export():
 def test_ordinary_export():
     identity = pylamport.Lamport(hash_algo = hashlib.blake2b)
     assert identity.gen() == identity.export()
+
+def test_error_key_already_generated():
+    identity = pylamport.Lamport()
+    identity.gen()
+    with pytest.raises(AttributeError):
+        identity.gen()
+
+def test_just_sign():
+    identity = pylamport.Lamport()
+    signature = pylamport.Lamport().sign("test")
+    assert identity.verify(signature)
+    assert len(repr(signature)) > 10
+
+def error_test_forged_signature():
+    identity = pylamport.Lamport()
+    signature = pylamport.Lamport().sign("test")
+    alt_signature = pylamport.Lamport().sign("test")
+    forged_signature = pylamport.Signature(signature.msg, signature.hash,
+                                           alt_signature.public_key)
+    with pytest.raises(ValueError):
+        identity.verify(forged_signature)

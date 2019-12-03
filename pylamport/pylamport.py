@@ -26,7 +26,6 @@ class Lamport:
                 try:
                     public_key = self.hash_algo(private_key.encode()).hexdigest()
                 except AttributeError:
-                    print("Attribute error") # debug
                     self.hash_algo = hashlib.sha256
                     public_key = self.hash_algo(private_key.encode()).hexdigest()
 
@@ -50,9 +49,10 @@ class Lamport:
         """
         try:
             if self.private_key and self.public_key:
-                if not self.private_key[0] + self.private_key[1] == 0:
+                if len(self.private_key[1]) + len(self.public_key[1]) > 0:
+                    print(len(self.private_key[1])) # debug
                     return True
-        finally:
+        except:
             return False
 
     def sign(self, msg: str):
@@ -60,7 +60,12 @@ class Lamport:
         Signs a public/private key pair using the public/private key pair.
         """
         self.msg = msg
-        msg_hash = self.hash_algo(self.msg.encode()).hexdigest()
+        try:
+            msg_hash = self.hash_algo(self.msg.encode()).hexdigest()
+        except AttributeError:
+            self.hash_algo = hashlib.sha256
+            msg_hash = self.hash_algo(self.msg.encode()).hexdigest()
+
         msg_hash_bits = bin(int(msg_hash, 16)).split('b')[1]
 
         if not self.is_key():
@@ -84,10 +89,10 @@ class Lamport:
         msg_hash = self.hash_algo(self.msg.encode()).hexdigest()
         msg_hash_bits = bin(int(msg_hash, 16)).split('b')[1]
 
-        print(len(self.public_key[0]),len(self.public_key[1]))
+        # print(len(self.public_key[0]),len(self.public_key[1]))
         for count, each_bit in enumerate(msg_hash_bits):
             indiv_hash = self.hash_algo(signature.hash[count].encode()).hexdigest()
-            print(each_bit, count)
+            # print(each_bit, count)
             if not indiv_hash == self.public_key[int(each_bit)][count]:
                 raise ValueError('Invalid signature')
 
@@ -101,5 +106,6 @@ class Signature:
         self.hash_algo = hash_algo
         if public_key:
             self.public_key = public_key
+
     def __repr__(self):
         return str(self.msg) + " " + str(self.hash)
