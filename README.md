@@ -1,4 +1,6 @@
 ## Pylamport
+[![Build Status](https://travis-ci.com/InnovativeInventor/pylamport.svg?branch=master)](https://travis-ci.com/InnovativeInventor/pylamport) 
+
 A python library for producing lamport signatures.
 
 Lamport signatures can be constructed with any secure one-way function (usually
