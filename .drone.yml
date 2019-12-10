@@ -1,0 +1,9 @@
+kind: pipeline
+name: default
+
+steps:
+- name: test
+  image: python
+  commands:
+    - pip install -U pip pytest codecov pytest-cov
+    - pytest --cov-report xml --cov-report term --cov=./
